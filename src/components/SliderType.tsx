@@ -38,7 +38,7 @@ const SliderType = () => {
                   <div>
                     <img
                       className="md:h-[428px]"
-                      src={'https://top-life-backend-805c2a56b99a.herokuapp.com' + depa?.attributes?.plane?.data?.attributes?.url}
+                      src={depa?.attributes?.plane?.data?.attributes?.url}
                       alt=""
                     />
                   </div>

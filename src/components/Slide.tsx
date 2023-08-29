@@ -40,8 +40,8 @@ const Slide = ({
                   <span className="text-[#42B0CD] font-medium">{subtitle}</span>
                 </h2>
                 <div className="mb-7 relative flex items-center">
-                  <img className="hidden lg:block" src={'https://top-life-backend-805c2a56b99a.herokuapp.com' + BannerPrice} alt="" />
-                  <img className="lg:hidden" src={'https://top-life-backend-805c2a56b99a.herokuapp.com' + BannerMobile} alt="" />
+                  <img className="hidden lg:block" src={BannerPrice} alt="" />
+                  <img className="lg:hidden" src={BannerMobile} alt="" />
                   <div className="absolute left-[20px] pt-3">
                     <p className="text-white lg:text-[#2C261F] text-sm lg:text-base uppercase mb-2 leading-none">
                       {priceText}
@@ -89,7 +89,7 @@ const Slide = ({
           </div>
         </div>
         <div className="w-full lg:w-7/12 h-screen relative before:content-[''] before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0 before:bg-[#00000080] lg:before:bg-transparent">
-          <img className="w-full h-full object-cover" src={'https://top-life-backend-805c2a56b99a.herokuapp.com' + Banner1} alt="" />
+          <img className="w-full h-full object-cover" src={Banner1} alt="" />
           <div className="absolute hidden lg:block bottom-5 left-5">
             <span className="bg-[#2C261F] px-4 pb-1 pt-3 text-white inline-block leading-none">
               Preventa

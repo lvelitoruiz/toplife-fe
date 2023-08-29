@@ -49,7 +49,7 @@ const ViewGallery = ({ activeTab }: galleryProps) => {
                   <div className="h-[444px]">
                     <img
                       className="w-full h-full object-cover"
-                      src={"https://top-life-backend-805c2a56b99a.herokuapp.com" + image.attributes.url}
+                      src={image.attributes.url}
                       alt=""
                     />
                   </div>

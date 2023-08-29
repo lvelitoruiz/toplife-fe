@@ -8,7 +8,9 @@ const Project = () => {
   const [datos, setDatos] = useState<any>(null);
 
   const getProyecto = async () => {
-    const data = await queryFunctions("https://top-life-backend-805c2a56b99a.herokuapp.com/api/proyectos");
+    const data = await queryFunctions(
+      "https://top-life-backend-805c2a56b99a.herokuapp.com/api/proyectos"
+    );
     let dataProd = JSON.parse(data);
     setProyecto(dataProd);
   };
@@ -30,10 +32,7 @@ const Project = () => {
           <div className="lg:w-6/12">
             <img
               className="w-full object-cover"
-              src={
-                "https://top-life-backend-805c2a56b99a.herokuapp.com" +
-                datos.fotoproyecto.data[0].attributes.url
-              }
+              src={datos.fotoproyecto.data[0].attributes.url}
               alt=""
             />
           </div>
@@ -54,7 +53,7 @@ const Project = () => {
             </div>
             <a
               className="w-full md:w-fit font-medium h-[50px] bg-[#42B0CD] text-white px-16 uppercase flex items-center shadow-[0_10px_20px_0_rgba(66,176,205,0.20)]"
-              href={"https://top-life-backend-805c2a56b99a.herokuapp.com" + datos.file.data[0].attributes.url}
+              href={datos.file.data[0].attributes.url}
               target="_blank"
             >
               <span className="pt-2">{datos.button}</span>

@@ -5,7 +5,7 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 const AboutUs = () => {
   const [aboutInfo, setAbouInfo] = useState<any>({});
 
-  const routeFixed = "https://top-life-backend-805c2a56b99a.herokuapp.com";
+  const routeFixed = "";
 
   const getInfo = async () => {
     const data = await queryFunctions("https://top-life-backend-805c2a56b99a.herokuapp.com/api/abouts");
@@ -38,13 +38,13 @@ const AboutUs = () => {
       <section className="relative h-[300px] md:h-[472px] flex items-center justify-start top-0 sticky">
         <img
           className="absolute h-[300px] md:h-[472px] w-full top-0 bottom-0 left-0 right-0 object-cover"
-          src={routeFixed + aboutInfo.banner1?.data?.attributes?.url}
+          src={aboutInfo.banner1?.data?.attributes?.url}
           alt=""
         />
         <div className="relative h-[242px] md:h-[401px] ml-[33px]">
           <img
             className="h-[242px] md:h-[401px] w-full"
-            src={routeFixed + aboutInfo.banner2?.data?.attributes?.url}
+            src={aboutInfo.banner2?.data?.attributes?.url}
             alt=""
           />
           <p className="absolute bottom-[16px] left-[30px] text-white text-base md:text-[26px] leading-tight">
@@ -58,7 +58,7 @@ const AboutUs = () => {
           <div className="lg:w-4/12">
             <img
               className="w-full object-cover h-[400px] lg:h-fit lg:min-h-[580px]"
-              src={routeFixed + aboutInfo.banner3?.data?.attributes?.url}
+              src={aboutInfo.banner3?.data?.attributes?.url}
               alt=""
             />
           </div>
@@ -160,7 +160,7 @@ const AboutUs = () => {
             <div className="flex items-center h-[100px]">
               <img
                 className="h-[87px]"
-                src={routeFixed + aboutInfo.logotorre?.data?.attributes?.url}
+                src={aboutInfo.logotorre?.data?.attributes?.url}
                 alt=""
               />
             </div>
@@ -276,7 +276,7 @@ const AboutUs = () => {
                     <img
                       key={index}
                       className={`h-[${image.attributes.alternativeText}px]`}
-                      src={routeFixed + image.attributes.url}
+                      src={image.attributes.url}
                       alt=""
                       style={{ 'height': `${image.attributes.alternativeText}px`}}
                     />
