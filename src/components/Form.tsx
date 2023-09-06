@@ -4,9 +4,21 @@ import Select from "./Select";
 import TextArea from "./TextArea";
 import SliderType from "./SliderType";
 import queryFunctions from "../utils/queryFunctions";
+import SelectEmbed from "./SelectEmbed";
 
 const Form = () => {
   const [text, setText] = useState<any>({});
+
+  const [nombres, setNombres] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [fono, setFono] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [tipoDoc, setTipoDoc] = useState("");
+  const [documento, setDocumento] = useState("");
+  const [mensaje, setMensaje] = useState("");
+  const [tipoDepa, setTipoDepa] = useState("1");
+
+  const [currentOpt, setCurrentOpt] = useState("1");
 
   const getText = async () => {
     const data = await queryFunctions("https://top-life-backend-805c2a56b99a.herokuapp.com/api/cotizations");
@@ -15,16 +27,36 @@ const Form = () => {
     setText(dataProd.data[0]);
   };
 
+  const optionsList = [
+    {value: "DNI", text: "DNI"},
+    {value: "CE", text: "CE"},
+  ]
+
+  const aptTypes = [
+    {value: "1", text: "1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA"},
+    {value: "2", text: "2D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA"},
+    {value: "3", text: "3D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA"},
+  ]
+
   useEffect(() => {
     getText();
   }, []);
+
+  useEffect(() => {
+    console.log('this is the tipo de depa: ',tipoDepa);
+  }, [tipoDepa]);
+
+  const handleChangeOnSlider = (value: number) => {
+    console.log('this is the item: ',value + 1);
+    setCurrentOpt((value + 1).toString());
+  }
 
   return (
     <section className="bg-white py-20 px-4 lg:px-[100px]" id="form">
       {text !== null && text !== undefined ? (
         <div className="flex flex-col lg:flex-row gap-6 md:gap-0 items-center">
           <div className="w-full lg:w-6/12">
-            <SliderType />
+            <SliderType type={tipoDepa} onSliderChange={handleChangeOnSlider} />
           </div>
           <div className="w-full lg:w-6/12 lg:pl-[100px]">
             <div className="pb-5">
@@ -35,38 +67,32 @@ const Form = () => {
             </div>
             <form className="grid grid-cols-2 gap-2" action="">
               <div className="col-span-2">
-                <div className="cursor-pointer border font-light border-[#8B8986] px-3 h-[50px] font-sans text-sm w-full text-[#2C261F] flex items-center">
-                  <div className="flex flex-col w-[95%] pr-1">
+                <div className="cursor-pointer border font-light border-[#8B8986] py-2 px-3 min-h-[50px] font-sans text-sm w-full text-[#2C261F] flex items-center">
+                  <div className="flex flex-col w-full">
                     <span className="text-[10px]">
                       ELIGE UN MODELO DE DEPARTAMENTO
                     </span>
-                    <span className="text-smz truncate">
-                      1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D +
-                      ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA
-                    </span>
-                  </div>
-                  <div className="min-w-[5%]">
-                    <i>icono</i>
+                    <SelectEmbed currentOption={currentOpt} options={aptTypes} title={"Escoge tu tipo de depa!"} name={""} onValueChange={ (event) => setTipoDepa(event) } />
                   </div>
                 </div>
               </div>
               <div>
-                <Input placeholder="MONBRES" name="" />
+                <Input placeholder="MONBRES" name="nombre" texto={""} onValueChange={(event) => setNombres(event)} />
               </div>
               <div>
-                <Input placeholder="APELLIDOS" name="" />
+                <Input placeholder="APELLIDOS" name="apellido" texto={""} onValueChange={(event) => setApellidos(event)} />
               </div>
               <div>
-                <Input placeholder="TELÉFONO" name="" />
+                <Input placeholder="TELÉFONO" name="telefono" texto={""} onValueChange={(event) => setFono(event)} />
               </div>
               <div>
-                <Input placeholder="CORREO ELECTRÓNICO" name="" />
+                <Input placeholder="CORREO ELECTRÓNICO" name="correo" texto={""} onValueChange={(event) => setCorreo(event)} />
               </div>
               <div>
-                <Select />
+                <Select title="TIPO DE DOCUMENTO" options={optionsList} name={"tipodocumento"} onValueChange={(event) => setTipoDoc(event)} />
               </div>
               <div>
-                <Input placeholder="NRO. DE DOCUMENTO" name="" />
+                <Input placeholder="NRO. DE DOCUMENTO" name="documento" texto={""} onValueChange={(event) => setDocumento(event)} />
               </div>
               <div className="col-span-2">
                 <TextArea />

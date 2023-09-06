@@ -10,6 +10,7 @@ import Header from "../components/Header";
 import Ubication from "../components/Ubication";
 import Footer from "../components/Footer";
 import Form from "../components/Form";
+import { useEffect, useState } from "react";
 
 const IndexPage: React.FC<PageProps> = () => {
   const [scrollPosition, setScrollPosition] = React.useState<number>(0);
@@ -19,7 +20,7 @@ const IndexPage: React.FC<PageProps> = () => {
     setScrollPosition(position);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -44,6 +45,8 @@ const IndexPage: React.FC<PageProps> = () => {
 
       <Asesors />
       <Footer />
+
+      
       
     </>
   );

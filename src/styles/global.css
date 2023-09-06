@@ -137,6 +137,15 @@ html {
     right: initial;
 }
 
+.select-custom {
+    background-image: url(/images/ico-select.svg);
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    appearance: none;
+    cursor: pointer;
+  }
+
 .swiper-arrow-plano .swiper-button-next:after,
 .swiper-arrow-plano .swiper-button-prev:after {
     font-size: 20px;
@@ -301,5 +310,35 @@ html {
 
     .swiper-banner {
         bottom: 260px;
+    }
+}
+
+@layer components {
+    .custom-input {
+        @apply border font-light border-[#8B8986] px-3 h-[50px] font-sans text-sm w-full focus:border-[#42B0CD] placeholder:text-[#9B8F86] text-[#2C261F] focus:outline-none;
+    }
+
+    .error-field {
+        @apply text-sm text-red-500 block py-2 pl-1;
+    }
+
+    .custom-textbox {
+        @apply border font-light border-[#8B8986] p-3 font-sans text-sm w-full focus:border-[#42B0CD] placeholder:text-[#9B8F86] text-[#2C261F] focus:outline-none;
+    }
+
+    .custom-radio {
+        @apply w-4 h-4 text-[#42B0CD] bg-[#42B0CD] border-[#42B0CD] focus:ring-[#42B0CD];
+    }
+
+    .custom-checkbox {
+        @apply relative flex items-center justify-center appearance-none w-5 h-5 border-2 border-[#42B0CD] rounded-sm bg-white checked:bg-[#42B0CD] checked:border-0;
+    }
+
+    .custom-button {
+        @apply font-medium h-[50px] bg-[#42B0CD] disabled:bg-[#2e464d] w-fit text-white px-10 uppercase flex items-center justify-center shadow-[0_10px_20px_0_rgba(66,176,205,0.20)];
+    }
+
+    .custom-upload {
+        @apply flex flex-col items-center justify-center w-full h-[150px] border border-[#8B8986] border-dashed rounded-lg cursor-pointer bg-[#F1F1F1];
     }
 }

@@ -12,11 +12,11 @@ const Header = ({fixed}: HeaderProps) => {
       className={`flex items-center justify-between px-4 lg:px-[100px] h-[80px] z-10 fixed top-0 w-full ${fixed ? "header-scrolled" : "" }`}
     >
       <div className="flex items-center gap-[120px]">
-        <a href="">
+        <a href="/">
           <img className="h-[59px]" src={Logo} alt="" />
         </a>
         <nav className="hidden lg:block">
-          <a href="">
+          <a href="/nosotros">
             <p className="pt-2">NOSOTROS</p>
           </a>
         </nav>

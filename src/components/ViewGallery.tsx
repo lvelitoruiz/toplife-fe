@@ -9,9 +9,10 @@ import "swiper/css/navigation";
 
 interface galleryProps {
   activeTab: boolean;
+  onOpenModal: (typeAssign: string, sourceAssign: string) => void;
 }
 
-const ViewGallery = ({ activeTab }: galleryProps) => {
+const ViewGallery = ({ activeTab, onOpenModal }: galleryProps) => {
   const [images, setImages] = useState<any>([]);
 
   const getImages = async () => {
@@ -46,10 +47,10 @@ const ViewGallery = ({ activeTab }: galleryProps) => {
           ? images.map((image: any, index: number) => {
               return (
                 <SwiperSlide key={index} className="swiper-slide">
-                  <div className="h-[444px]">
+                  <div className="h-[444px]" onClick={(event) => onOpenModal('image',image.attributes.url)}>
                     <img
                       className="w-full h-full object-cover"
-                      src={image.attributes.url}
+                      src={image.attributes.formats.small.url}
                       alt=""
                     />
                   </div>

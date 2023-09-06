@@ -1,16 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { type Swiper as SwiperRef } from "swiper";
 import { Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import queryFunctions from "../utils/queryFunctions";
 
-const SliderType = () => {
+interface sliderProperties {
+  type: string;
+  onSliderChange: (value: number) => void;
+}
+
+const SliderType = ({ type = "1", onSliderChange }: sliderProperties) => {
   const [depas, setDepas] = useState<any>([]);
 
+  const [swiperRef, setSwiperRef] = useState<SwiperRef>();
+
   const getSlideData = async () => {
-    const data = await queryFunctions("https://top-life-backend-805c2a56b99a.herokuapp.com/api/tipo-depas");
+    const data = await queryFunctions(
+      "https://top-life-backend-805c2a56b99a.herokuapp.com/api/tipo-depas"
+    );
     let dataProd = JSON.parse(data);
     console.log(dataProd.data);
     setDepas(dataProd.data);
@@ -20,8 +30,16 @@ const SliderType = () => {
     getSlideData();
   }, []);
 
+  useEffect(() => {
+    console.log(swiperRef);
+    if (swiperRef !== null && swiperRef !== undefined) {
+      swiperRef.slideTo(parseInt(type) -1);
+    }
+  }, [type]);
+
   return (
     <Swiper
+      onSwiper={setSwiperRef}
       modules={[Navigation]}
       spaceBetween={0}
       slidesPerView={1}
@@ -29,6 +47,7 @@ const SliderType = () => {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       }}
+      onSlideChange={ index =>  onSliderChange(index.snapIndex) }
     >
       {depas !== null && depas !== undefined
         ? depas.map((depa: any, index: number) => {
@@ -61,22 +80,30 @@ const SliderType = () => {
                       <i className="icon-dormitorio text-4xl"></i>
                       <div className="pt-2">
                         <p className="text-[10px]">DORMITORIOS</p>
-                        <p className="text-xs font-medium">{depa.attributes.dorms}</p>
+                        <p className="text-xs font-medium">
+                          {depa.attributes.dorms}
+                        </p>
                       </div>
                     </div>
                     <div className="items-center gap-3 hidden lg:flex">
                       <div className="pt-2">
                         <div className="flex justify-between items-center gap-2">
                           <p className="text-[11px]">ÁREA TECHADA APROX.</p>
-                          <p className="text-xs font-medium">{depa.attributes.techado}</p>
+                          <p className="text-xs font-medium">
+                            {depa.attributes.techado}
+                          </p>
                         </div>
                         <div className="flex justify-between items-center gap-2">
                           <p className="text-[11px]">ÁREA SIN TECHADA APROX.</p>
-                          <p className="text-xs font-medium">{depa.attributes.libre}</p>
+                          <p className="text-xs font-medium">
+                            {depa.attributes.libre}
+                          </p>
                         </div>
                         <div className="flex justify-between items-center gap-2">
                           <p className="text-[11px]">ÁREA OCUPADA APROX.</p>
-                          <p className="text-xs font-medium">{depa.attributes.ocupada}</p>
+                          <p className="text-xs font-medium">
+                            {depa.attributes.ocupada}
+                          </p>
                         </div>
                       </div>
                     </div>

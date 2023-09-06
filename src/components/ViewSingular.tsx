@@ -4,13 +4,16 @@ import queryFunctions from "../utils/queryFunctions";
 
 interface viewProps {
   activeTab: boolean;
+  onOpenModal: (typeAssign: string, sourceAssign: string) => void;
 }
 
-const ViewSingular = ({ activeTab }: viewProps) => {
+const ViewSingular = ({ activeTab, onOpenModal }: viewProps) => {
   const [image, setImage] = useState<any>({});
 
   const getImage = async () => {
-    const data = await queryFunctions("https://top-life-backend-805c2a56b99a.herokuapp.com/api/singulars");
+    const data = await queryFunctions(
+      "https://top-life-backend-805c2a56b99a.herokuapp.com/api/singulars"
+    );
     let dataProd = JSON.parse(data);
     setImage(dataProd.data[0].attributes);
   };
@@ -25,10 +28,13 @@ const ViewSingular = ({ activeTab }: viewProps) => {
         <div className="relative flex items-center justify-center w-full h-[444px]">
           <img
             className="w-full h-full object-cover"
-            src={(image?.image?.data?.attributes?.url || "")}
+            src={image?.image?.data?.attributes?.url || ""}
             alt={image.text}
           />
-          <button className="absolute w-[80px] h-[80px] flex items-center justify-center bg-[#f1f1f136] rounded-full shadow-[0_10px_20px_0_rgba(0,0,0,0.25)]">
+          <button
+            className="absolute w-[80px] h-[80px] flex items-center justify-center bg-[#f1f1f136] rounded-full shadow-[0_10px_20px_0_rgba(0,0,0,0.25)]"
+            onClick={(event) => onOpenModal('iframe','https://kuula.co/share/5fNRy/collection/7JFqp?logo=0&info=0&fs=1&vr=1&initload=0&thumbs=1&inst=es')}
+          >
             <span className="bg-[#F1F1F1] h-[56px] w-[56px] rounded-full flex items-center justify-center">
               <i className="icon-play text-[40px] text-[#42B0CD]"></i>
             </span>

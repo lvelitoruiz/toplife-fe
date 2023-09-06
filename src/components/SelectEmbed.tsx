@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface option {
   value: string;
@@ -12,16 +12,18 @@ interface optionList {
   extraStyles?: string;
   onValueChange: (value: string) => void;
   required?: boolean;
+  currentOption?: string;
 }
 
-const Select = ({
+const SelectEmbed = ({
   options,
   title,
   name,
   onValueChange,
-  required = true,
+  required = false,
+  currentOption = "1",
 }: optionList) => {
-  const [selectValue, setSelectValue] = useState("");
+  const [selectValue, setSelectValue] = useState(currentOption);
   const [hasError, setError] = useState(false);
 
   const handleChange = (text: string) => {
@@ -37,10 +39,21 @@ const Select = ({
     }
   };
 
+  useEffect( () => {
+    console.log("hello options: ", currentOption);
+    if(currentOption !== undefined && currentOption !== null) {
+      setSelectValue(currentOption)
+    }
+  },[currentOption])
+
+  useEffect( () => {
+    console.log("hello option selected: ", selectValue.toString());
+  },[selectValue])
+
   return (
     <>
       <select
-        className="select-custom border cursor-pointer font-light border-[#8B8986] px-3 h-[50px] font-sans text-sm w-full focus:border-[#42B0CD] placeholder:text-[#9B8F86] text-[#2C261F] focus:outline-none"
+        className="select-custom cursor-pointer font-light border-[#8B8986] p-0 h-auto font-sans text-sm w-full focus:border-[#42B0CD] placeholder:text-[#9B8F86] text-[#2C261F] focus:outline-none"
         name={name}
         id={name}
         value={selectValue}
@@ -57,10 +70,16 @@ const Select = ({
         })}
       </select>
       {required ? (
-        <>{hasError ? <span className="error-field">Este campo no puede estar vacío.</span> : null}</>
+        <>
+          {hasError ? (
+            <span className="error-field">
+              Este campo no puede estar vacío.
+            </span>
+          ) : null}
+        </>
       ) : null}
     </>
   );
 };
 
-export default Select;
+export default SelectEmbed;

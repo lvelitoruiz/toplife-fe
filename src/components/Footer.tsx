@@ -69,7 +69,7 @@ const Footer = () => {
           <a className="text-white underline pt-2 text-sm" href="">
             Políticas de Privacidad
           </a>
-          <a className="text-white underline pt-2 text-sm" href="">
+          <a className="text-white underline pt-2 text-sm" href="/reclamaciones">
             Libro de Reclamaciones
           </a>
         </div>
