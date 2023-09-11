@@ -6,6 +6,7 @@ import { Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import { backendUrl } from "../consts";
 
 interface galleryProps {
   activeTab: boolean;
@@ -16,7 +17,7 @@ const ViewGallery = ({ activeTab, onOpenModal }: galleryProps) => {
   const [images, setImages] = useState<any>([]);
 
   const getImages = async () => {
-    const data = await queryFunctions("https://top-life-backend-805c2a56b99a.herokuapp.com/api/commons");
+    const data = await queryFunctions(backendUrl + "commons");
     let dataProd = JSON.parse(data);
     setImages(dataProd.data[0].attributes.gallery.data);
   };

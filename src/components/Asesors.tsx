@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import queryFunctions from "../utils/queryFunctions";
 import Asesor from "./Asesor";
+import { backendUrl } from "../consts";
 
 interface asesorProps {
     Nombre: string;
@@ -14,7 +15,7 @@ const Asesors = () => {
   const [asesores, setAsesores] = useState<any>([]);
 
   const getAsesores = async () => {
-    const data = await queryFunctions("https://top-life-backend-805c2a56b99a.herokuapp.com/api/asesors");
+    const data = await queryFunctions( backendUrl + "asesors");
     let dataProd = JSON.parse(data);
     setAsesores(dataProd.data);
   };

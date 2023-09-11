@@ -7,6 +7,7 @@ import Radio from "./Radio";
 import Checkbox from "./Checkbox";
 import Upload from "./Upload";
 import postFunctions from "../utils/postFunctions";
+import axios from "axios";
 
 const Reclamations = () => {
   const [name, setName] = useState("");
@@ -24,6 +25,7 @@ const Reclamations = () => {
   const [provincia, setProvincia] = useState("");
   const [distrito, setDistrito] = useState("");
   const [tipoDocumento, setTipoDoc] = useState("");
+  const [tipoDocumentoTutor, setTipoDocTutor] = useState("");
 
   const [mensaje, setMensaje] = useState("");
   const [detalle, setDetalle] = useState("");
@@ -37,11 +39,11 @@ const Reclamations = () => {
 
   const [selectedFile, setSelectedFile] = useState<File | any>(null);
 
+  const [messageSent, setMessageSent] = useState(false);
+
   type FormObjectType = {
     [key: string]: string;
   };
-
-  const formData = new FormData();
 
   const formObject: FormObjectType = {
     nombres: name,
@@ -80,6 +82,7 @@ const Reclamations = () => {
       alert("completa bien");
     } else {
       alert("bien completado");
+      handleSubmit();
     }
   };
 
@@ -87,23 +90,46 @@ const Reclamations = () => {
     setSelectedFile(file);
   };
 
-  // const handleSubmit = () => {
-  //   console.log("this is the form data: ", formObject);
+  const handleSubmit = () => {
+    let data = new FormData();
+    data.append("Nombre", name);
+    data.append("Apellido", lastName);
+    data.append("Correo", mail);
+    data.append("Telefono", phone);
+    data.append("Tipodoc", tipoDocumento);
+    data.append("Documento", doc);
+    data.append("Departamento", departamento);
+    data.append("Provincia", provincia);
+    data.append("Distrito", distrito);
+    data.append("Direccion", place);
+    data.append("Nombretutor", tutor);
+    data.append("Apellidotutor", tutorLastName);
+    data.append("Tipodoctutor", tipoDocumentoTutor);
+    data.append("Documentotutor", tutorDocument);
+    data.append("Tipobien", bienContratado);
+    data.append("Mensaje", mensaje);
+    data.append("Tipodetalle", tipoPedido);
+    data.append("Detalle", detalle);
+    data.append("Pedido", pedido);
+    data.append("Autorizacion", autorizacion);
 
-  //   for (let key in formObject) {
-  //     console.log(formObject[key]);
-  //     formData.append(key, formObject[key]);
-  //   }
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://script.google.com/macros/s/AKfycbxQkD07JytY4W6y2rBUb-MuySnZfEiJa7uflDMTbi82Qfk3WnvmRWZ2yqaGs-GkPGE/exec",
+      headers: {},
+      data: data,
+    };
 
-  //   formData.append("reclamationfile", selectedFile);
-
-  //   console.log("entries in the FormData object:");
-  //   for (let [key, value] of (formData as any).entries()) {
-  //     console.log(key, value);
-  //   }
-
-  //   postFunctions(formData);
-  // };
+    axios
+      .request(config)
+      .then((response) => {
+        setMessageSent(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <section>
@@ -184,7 +210,7 @@ const Reclamations = () => {
                 options={optionsList}
                 title={"TIPO DOC."}
                 name={"local"}
-                onValueChange={(event) => setLocal(event)}
+                onValueChange={(event) => setTipoDoc(event)}
               />
             </div>
             <div className="col-span-10 md:col-span-3">
@@ -248,7 +274,7 @@ const Reclamations = () => {
                 options={optionsList}
                 title={"TIPO DOC. TUTOR"}
                 name={"tipodocumento"}
-                onValueChange={(event) => setTipoDoc(event)}
+                onValueChange={(event) => setTipoDocTutor(event)}
               />
             </div>
             <div className="col-span-10 md:col-span-3">
@@ -276,7 +302,6 @@ const Reclamations = () => {
                     texto={"proyecto"}
                     label={"PROYECTO"}
                     name={"proyecto"}
-                    selected={true}
                     onValueChange={(event) => setBienContratado(event)}
                   />
                 </div>
@@ -284,8 +309,7 @@ const Reclamations = () => {
                   <Radio
                     texto={"servicio"}
                     label={"SERVICIO"}
-                    name={"servicio"}
-                    selected={false}
+                    name={"proyecto"}
                     onValueChange={(event) => setBienContratado(event)}
                   />
                 </div>
@@ -311,7 +335,6 @@ const Reclamations = () => {
                     texto={"queja"}
                     label={"QUEJA"}
                     name={"queja"}
-                    selected={true}
                     onValueChange={(event) => setTipoPedido(event)}
                   />
                 </div>
@@ -319,8 +342,7 @@ const Reclamations = () => {
                   <Radio
                     texto={"reclamo"}
                     label={"RECLAMO"}
-                    name={"reclamo"}
-                    selected={false}
+                    name={"queja"}
                     onValueChange={(event) => setTipoPedido(event)}
                   />
                 </div>
@@ -352,14 +374,14 @@ const Reclamations = () => {
                 onValueChange={(event) => setPedido(event)}
               />
             </div>
-            <div className="col-span-10 md:col-span-6">
+            {/* <div className="col-span-10 md:col-span-6">
               <Upload
                 texto={"Adjuntar archivo"}
                 extentions={"PDF, PPTX, WORD o imágenes JPG, PNG"}
                 name={"upload"}
                 onValueChange={(event) => handleFileChange(event)}
               />
-            </div>
+            </div> */}
             <div className="col-span-10 md:col-span-6 pt-5">
               <p className="text-sm text-[#F09B3C]">
                 4. Observaciones y acciones adoptadas por el proveedor
@@ -388,8 +410,7 @@ const Reclamations = () => {
                   <Radio
                     texto={"si"}
                     label={"SI"}
-                    name={"si"}
-                    selected={true}
+                    name={"autorizo"}
                     onValueChange={(event) => setAutorizacion(event)}
                   />
                 </div>
@@ -397,8 +418,7 @@ const Reclamations = () => {
                   <Radio
                     texto={"no"}
                     label={"NO"}
-                    name={"no"}
-                    selected={false}
+                    name={"autorizo"}
                     onValueChange={(event) => setAutorizacion(event)}
                   />
                 </div>
@@ -419,19 +439,29 @@ const Reclamations = () => {
                   consumidor.
                 </p>
               </div>
-              <Checkbox
-                texto={"He leído y acepto la Políticas de Privacidad de Datos"}
-                name={"privacidad"}
-                selected={privacidad}
-                onValueChange={(event) => setPrivacidad(event)}
-              />
-              <button
-                className="custom-button"
-                disabled={privacidad}
-                onClick={(event) => validateForm()}
-              >
-                <span className="pt-2">ENVIAR</span>
-              </button>
+              {messageSent ? (
+                <div className="mt-2">
+                  <p>El mensaje ha sido envíado correctamente!!</p>
+                </div>
+              ) : (
+                <>
+                  <Checkbox
+                    texto={
+                      "He leído y acepto la Políticas de Privacidad de Datos"
+                    }
+                    name={"privacidad"}
+                    selected={privacidad}
+                    onValueChange={(event) => setPrivacidad(event)}
+                  />
+                  <button
+                    className="custom-button"
+                    disabled={!privacidad}
+                    onClick={(event) => validateForm()}
+                  >
+                    <span className="pt-2">ENVIAR</span>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

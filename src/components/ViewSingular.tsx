@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Virtual from "../images/virtual.png";
 import queryFunctions from "../utils/queryFunctions";
+import { backendUrl } from "../consts";
 
 interface viewProps {
   activeTab: boolean;
@@ -12,7 +13,7 @@ const ViewSingular = ({ activeTab, onOpenModal }: viewProps) => {
 
   const getImage = async () => {
     const data = await queryFunctions(
-      "https://top-life-backend-805c2a56b99a.herokuapp.com/api/singulars"
+      backendUrl + "singulars"
     );
     let dataProd = JSON.parse(data);
     setImage(dataProd.data[0].attributes);

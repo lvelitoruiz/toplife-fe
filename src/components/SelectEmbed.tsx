@@ -40,15 +40,14 @@ const SelectEmbed = ({
   };
 
   useEffect( () => {
-    console.log("hello options: ", currentOption);
     if(currentOption !== undefined && currentOption !== null) {
       setSelectValue(currentOption)
     }
   },[currentOption])
 
-  useEffect( () => {
-    console.log("hello option selected: ", selectValue.toString());
-  },[selectValue])
+  // useEffect( () => {
+  //   console.log("hello option selected: ", selectValue.toString());
+  // },[selectValue])
 
   return (
     <>

@@ -6,6 +6,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import queryFunctions from "../utils/queryFunctions";
+import { backendUrl } from "../consts";
 
 interface sliderProperties {
   type: string;
@@ -19,10 +20,9 @@ const SliderType = ({ type = "1", onSliderChange }: sliderProperties) => {
 
   const getSlideData = async () => {
     const data = await queryFunctions(
-      "https://top-life-backend-805c2a56b99a.herokuapp.com/api/tipo-depas"
+      backendUrl + "tipo-depas"
     );
     let dataProd = JSON.parse(data);
-    console.log(dataProd.data);
     setDepas(dataProd.data);
   };
 
@@ -31,7 +31,6 @@ const SliderType = ({ type = "1", onSliderChange }: sliderProperties) => {
   }, []);
 
   useEffect(() => {
-    console.log(swiperRef);
     if (swiperRef !== null && swiperRef !== undefined) {
       swiperRef.slideTo(parseInt(type) -1);
     }

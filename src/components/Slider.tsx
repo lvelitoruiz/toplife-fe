@@ -9,13 +9,14 @@ import "swiper/css/effect-fade";
 import Slide from "./Slide";
 
 import queryFunctions from "../utils/queryFunctions";
+import { backendUrl } from "../consts";
 
 const slider = () => {
   const [slideData, setSlideData] = useState<any>([]);
 
   const getSlideData = async () => {
     const data = await queryFunctions(
-      "https://top-life-backend-805c2a56b99a.herokuapp.com/api/initial-banners"
+      backendUrl + "initial-banners"
     );
     let dataProd = JSON.parse(data);
     setSlideData(dataProd.data);

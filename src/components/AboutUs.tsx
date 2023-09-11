@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import queryFunctions from "../utils/queryFunctions";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import Modal from "./Modal";
+import { backendUrl } from "../consts";
 
 const AboutUs = () => {
   const [aboutInfo, setAbouInfo] = useState<any>({});
@@ -10,7 +10,7 @@ const AboutUs = () => {
 
   const getInfo = async () => {
     const data = await queryFunctions(
-      "https://top-life-backend-805c2a56b99a.herokuapp.com/api/abouts"
+      backendUrl + "abouts"
     );
     let dataProd = JSON.parse(data);
     setAbouInfo(dataProd.data[0].attributes);

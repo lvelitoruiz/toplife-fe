@@ -5,6 +5,9 @@ import TextArea from "./TextArea";
 import SliderType from "./SliderType";
 import queryFunctions from "../utils/queryFunctions";
 import SelectEmbed from "./SelectEmbed";
+import axios from "axios";
+import Checkbox from "./Checkbox";
+import { backendUrl } from "../consts";
 
 const Form = () => {
   const [text, setText] = useState<any>({});
@@ -17,39 +20,82 @@ const Form = () => {
   const [documento, setDocumento] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [tipoDepa, setTipoDepa] = useState("1");
+  const [privacidad, setPrivacidad] = useState(false);
+  const [messageSent, setMessageSent] = useState(false);
 
   const [currentOpt, setCurrentOpt] = useState("1");
 
   const getText = async () => {
-    const data = await queryFunctions("https://top-life-backend-805c2a56b99a.herokuapp.com/api/cotizations");
+    const data = await queryFunctions(
+      backendUrl + "cotizations"
+    );
     let dataProd = JSON.parse(data);
-    console.log(dataProd.data[0]);
     setText(dataProd.data[0]);
   };
 
   const optionsList = [
-    {value: "DNI", text: "DNI"},
-    {value: "CE", text: "CE"},
-  ]
+    { value: "DNI", text: "DNI" },
+    { value: "CE", text: "CE" },
+  ];
 
   const aptTypes = [
-    {value: "1", text: "1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA"},
-    {value: "2", text: "2D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA"},
-    {value: "3", text: "3D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA"},
-  ]
+    {
+      value: "1",
+      text: "1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA",
+    },
+    {
+      value: "2",
+      text: "2D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA",
+    },
+    {
+      value: "3",
+      text: "3D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA, 1D + ESTAR, SALA-COMEDOR, BALCÓN, 1.5 SSHH, COCINA",
+    },
+  ];
 
   useEffect(() => {
     getText();
   }, []);
 
-  useEffect(() => {
-    console.log('this is the tipo de depa: ',tipoDepa);
-  }, [tipoDepa]);
+  // useEffect(() => {
+  //   console.log("this is the tipo de depa: ", tipoDepa);
+  // }, [tipoDepa]);
 
   const handleChangeOnSlider = (value: number) => {
-    console.log('this is the item: ',value + 1);
     setCurrentOpt((value + 1).toString());
-  }
+  };
+
+  const handleSubmit = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    let data = new FormData();
+    data.append("Nombre", nombres);
+    data.append("Apellido", apellidos);
+    data.append("Tipodepa", tipoDepa);
+    data.append("Telefono", fono);
+    data.append("Correo", correo);
+    data.append("Tipodoc", tipoDoc);
+    data.append("Documento", documento);
+    data.append("Mensaje", mensaje);
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://script.google.com/macros/s/AKfycbyFcwYJhBHCrHh7edJDUqAGMY6cp9n9cJhR4tpskCtBR9EXsLx4w8oeYnV7bfIpy1I/exec",
+      headers: {},
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        setMessageSent(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <section className="bg-white py-20 px-4 lg:px-[100px]" id="form">
@@ -72,66 +118,97 @@ const Form = () => {
                     <span className="text-[10px]">
                       ELIGE UN MODELO DE DEPARTAMENTO
                     </span>
-                    <SelectEmbed currentOption={currentOpt} options={aptTypes} title={"Escoge tu tipo de depa!"} name={""} onValueChange={ (event) => setTipoDepa(event) } />
+                    <SelectEmbed
+                      currentOption={currentOpt}
+                      options={aptTypes}
+                      title={"Escoge tu tipo de depa!"}
+                      name={""}
+                      onValueChange={(event) => setTipoDepa(event)}
+                    />
                   </div>
                 </div>
               </div>
               <div>
-                <Input placeholder="MONBRES" name="nombre" texto={""} onValueChange={(event) => setNombres(event)} />
+                <Input
+                  placeholder="MONBRES"
+                  name="nombre"
+                  texto={""}
+                  onValueChange={(event) => setNombres(event)}
+                />
               </div>
               <div>
-                <Input placeholder="APELLIDOS" name="apellido" texto={""} onValueChange={(event) => setApellidos(event)} />
+                <Input
+                  placeholder="APELLIDOS"
+                  name="apellido"
+                  texto={""}
+                  onValueChange={(event) => setApellidos(event)}
+                />
               </div>
               <div>
-                <Input placeholder="TELÉFONO" name="telefono" texto={""} onValueChange={(event) => setFono(event)} />
+                <Input
+                  placeholder="TELÉFONO"
+                  name="telefono"
+                  texto={""}
+                  onValueChange={(event) => setFono(event)}
+                />
               </div>
               <div>
-                <Input placeholder="CORREO ELECTRÓNICO" name="correo" texto={""} onValueChange={(event) => setCorreo(event)} />
+                <Input
+                  placeholder="CORREO ELECTRÓNICO"
+                  name="correo"
+                  texto={""}
+                  onValueChange={(event) => setCorreo(event)}
+                />
               </div>
               <div>
-                <Select title="TIPO DE DOCUMENTO" options={optionsList} name={"tipodocumento"} onValueChange={(event) => setTipoDoc(event)} />
+                <Select
+                  title="TIPO DE DOCUMENTO"
+                  options={optionsList}
+                  name={"tipodocumento"}
+                  onValueChange={(event) => setTipoDoc(event)}
+                />
               </div>
               <div>
-                <Input placeholder="NRO. DE DOCUMENTO" name="documento" texto={""} onValueChange={(event) => setDocumento(event)} />
+                <Input
+                  placeholder="NRO. DE DOCUMENTO"
+                  name="documento"
+                  texto={""}
+                  onValueChange={(event) => setDocumento(event)}
+                />
               </div>
               <div className="col-span-2">
-                <TextArea />
+                <TextArea
+                  texto={""}
+                  placeholder={"MENSAJE"}
+                  name={"mensaje"}
+                  onValueChange={(event) => setMensaje(event)}
+                />
               </div>
-              <div className="col-span-2">
-                <div className="flex gap-2 w-full">
-                  <input
-                    type="checkbox"
-                    id="some_id"
-                    className="relative peer flex items-center justify-center appearance-none w-5 h-5 border-2 border-[#42B0CD] rounded-sm bg-white checked:bg-[#42B0CD] checked:border-0"
-                  />
-                  <label
-                    className="pt-1 text-[#9B8F86] text-sm"
-                    htmlFor="some_id"
-                  >
-                    {text?.attributes?.checkbox}
-                  </label>
-                  <svg
-                    className="absolute w-[18px] h-4 hidden peer-checked:block text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
+              {messageSent ? (
+                <div className="mt-2 col-span-2 text-xl pl-2">
+                  <p>El mensaje ha sido envíado correctamente!!</p>
                 </div>
-              </div>
-              <div className="mt-2">
-                <a
-                  className="font-medium h-[50px] bg-[#42B0CD] w-full text-white px-10 uppercase flex items-center justify-center shadow-[0_10px_20px_0_rgba(66,176,205,0.20)]"
-                  href=""
-                >
-                  <span className="pt-2">{text?.attributes?.button}</span>
-                </a>
-              </div>
+              ) : (
+                <>
+                  <div className="col-span-2">
+                    <Checkbox
+                      texto={text?.attributes?.checkbox}
+                      name={"privacidad"}
+                      selected={privacidad}
+                      onValueChange={(event) => setPrivacidad(event)}
+                    />
+                  </div>
+                  <div className="mt-2">
+                    <button
+                      className="custom-button"
+                      disabled={!privacidad}
+                      onClick={(event) => handleSubmit(event)}
+                    >
+                      <span className="pt-2">{text?.attributes?.button}</span>
+                    </button>
+                  </div>
+                </>
+              )}
             </form>
           </div>
         </div>

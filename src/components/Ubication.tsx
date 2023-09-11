@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import queryFunctions from "../utils/queryFunctions";
+import { backendUrl } from "../consts";
+import Map from "./Map";
 
 const Ubication = () => {
   const [ubication, setUbication] = useState<any>({});
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
 
   const getImage = async () => {
-    const data = await queryFunctions("https://top-life-backend-805c2a56b99a.herokuapp.com/api/ubications");
+    const data = await queryFunctions(backendUrl + "ubications");
     let dataProd = JSON.parse(data);
     setUbication(dataProd.data[0].attributes);
   };
@@ -13,6 +17,14 @@ const Ubication = () => {
   useEffect(() => {
     getImage();
   }, []);
+
+  useEffect(() => {
+    if (ubication.centercoords !== undefined) {
+      let [lat, lng] = ubication.centercoords.split(",");
+      setLat(lat);
+      setLng(lng);
+    }
+  }, [ubication]);
 
   return (
     <section>
@@ -59,6 +71,18 @@ const Ubication = () => {
         </div>
         <div className="w-full lg:w-8/12">
           <div className="w-full h-[512px] lg:h-[612px] bg-[#D9D9D9] relative">
+            {lat !== "" && lng !== "" ? (
+              <Map
+                latitude={lat}
+                longitude={lng}
+                showStores={false}
+                showBanks={true}
+                showHospitals={false}
+                banks={ubication.banks}
+                stores={ubication.stores}
+                hospitals={ubication.hospitals}
+              />
+            ) : null}
             <div className="absolute bottom-4 left-4 right-4 md:right-auto lg:bottom-8 lg:left-8">
               <div className="flex items-center bg-white overflow-auto">
                 <button className="font-medium text-sm w-full px-7 h-[65px] flex items-center justify-center text-white bg-[#42B0CD] gap-2">

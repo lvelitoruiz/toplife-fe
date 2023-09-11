@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Cercado from "../images/caercadeproyectos.png";
 import Nomena from "../images/logo-nomena.png";
 import queryFunctions from "../utils/queryFunctions";
+import { backendUrl } from "../consts";
 
 const Project = () => {
   const [proyectoData, setProyecto] = useState<any>(null);
@@ -9,7 +10,7 @@ const Project = () => {
 
   const getProyecto = async () => {
     const data = await queryFunctions(
-      "https://top-life-backend-805c2a56b99a.herokuapp.com/api/proyectos"
+      backendUrl + "proyectos"
     );
     let dataProd = JSON.parse(data);
     setProyecto(dataProd);

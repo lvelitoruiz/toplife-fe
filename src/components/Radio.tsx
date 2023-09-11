@@ -4,12 +4,12 @@ interface RadioProperties {
   texto: string;
   label: string;
   name: string;
-  selected: boolean;
+  selected?: boolean;
   extraStyles?: string;
   onValueChange: (value: string) => void;
 }
 
-const Radio = ({ texto, label, name, onValueChange, selected }: RadioProperties) => {
+const Radio = ({ texto, label, name, onValueChange }: RadioProperties) => {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
@@ -30,7 +30,6 @@ const Radio = ({ texto, label, name, onValueChange, selected }: RadioProperties)
         type="radio"
         value={inputValue}
         name={name}
-        checked={selected}
         className="custom-radio"
         onChange={(event) => handleChange(event.target.value)}
       />

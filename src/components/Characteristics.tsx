@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 
 import Proyecto2 from "../images/proyecto-2.svg";
 import queryFunctions from "../utils/queryFunctions";
+import { backendUrl } from "../consts";
 
 const Characteristics = () => {
   const [features, setFeatures] = useState<any>(null);
 
   const getFeatures = async () => {
     const data = await queryFunctions(
-      "https://top-life-backend-805c2a56b99a.herokuapp.com/api/characteristics/1"
+      backendUrl + "characteristics/1"
     );
     let dataProd = JSON.parse(data);
     setFeatures(dataProd.data.attributes);
