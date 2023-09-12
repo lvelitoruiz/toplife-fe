@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import queryFunctions from "../utils/queryFunctions";
 import { backendUrl } from "../consts";
-import Map from "./Map";
+import MapComponent from "./MapComponent";
 
 const Ubication = () => {
   const [ubication, setUbication] = useState<any>({});
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
+  const [locationName, setLocationName] = useState("stores");
 
   const getImage = async () => {
     const data = await queryFunctions(backendUrl + "ubications");
@@ -25,6 +26,10 @@ const Ubication = () => {
       setLng(lng);
     }
   }, [ubication]);
+
+  const handleLocations = (name: string) => {
+    setLocationName(name);
+  };
 
   return (
     <section>
@@ -72,12 +77,10 @@ const Ubication = () => {
         <div className="w-full lg:w-8/12">
           <div className="w-full h-[512px] lg:h-[612px] bg-[#D9D9D9] relative">
             {lat !== "" && lng !== "" ? (
-              <Map
+              <MapComponent
                 latitude={lat}
                 longitude={lng}
-                showStores={false}
-                showBanks={true}
-                showHospitals={false}
+                sendInfo={locationName}
                 banks={ubication.banks}
                 stores={ubication.stores}
                 hospitals={ubication.hospitals}
@@ -85,16 +88,25 @@ const Ubication = () => {
             ) : null}
             <div className="absolute bottom-4 left-4 right-4 md:right-auto lg:bottom-8 lg:left-8">
               <div className="flex items-center bg-white overflow-auto">
-                <button className="font-medium text-sm w-full px-7 h-[65px] flex items-center justify-center text-white bg-[#42B0CD] gap-2">
-                  <i className="icon-shop text-2xl text-white"></i>
+                <button
+                  className={`font-medium text-sm w-full px-7 h-[65px] flex items-center justify-center ${ locationName === "stores" ? "text-white bg-[#42B0CD] gap-2" : "text-[#8B8986] gap-2"}`}
+                  onClick={(event) => handleLocations("stores")}
+                >
+                  <i className={`icon-shop text-2xl ${ locationName === "stores" ? "text-white" : "text-[#8B8986]"}`}></i>
                   <span className="pt-3 whitespace-nowrap">COMERCIOS</span>
                 </button>
-                <button className="font-medium text-sm w-full px-7 h-[65px] flex items-center justify-center text-[#8B8986] gap-2">
-                  <i className="icon-bank text-2xl text-[#8B8986]"></i>
+                <button
+                  className={`font-medium text-sm w-full px-7 h-[65px] flex items-center justify-center ${ locationName === "banks" ? "text-white bg-[#42B0CD] gap-2" : "text-[#8B8986] gap-2"}`}
+                  onClick={(event) => handleLocations("banks")}
+                >
+                  <i className={`icon-bank text-2xl ${ locationName === "banks" ? "text-white" : "text-[#8B8986]"}`}></i>
                   <span className="pt-3 whitespace-nowrap">BANCOS</span>
                 </button>
-                <button className="font-medium text-sm w-full px-7 h-[65px] flex items-center justify-center text-[#8B8986] gap-2">
-                  <i className="icon-hospital text-2xl text-[#8B8986]"></i>
+                <button
+                  className={`font-medium text-sm w-full px-7 h-[65px] flex items-center justify-center ${ locationName === "hospitals" ? "text-white bg-[#42B0CD] gap-2" : "text-[#8B8986] gap-2"}`}
+                  onClick={(event) => handleLocations("hospitals")}
+                >
+                  <i className={`icon-hospital text-2xl ${ locationName === "hospitals" ? "text-white" : "text-[#8B8986]"}`}></i>
                   <span className="pt-3 whitespace-nowrap">
                     CENTROS MÉDICOS
                   </span>

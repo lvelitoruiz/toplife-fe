@@ -45,9 +45,9 @@ const SelectEmbed = ({
     }
   },[currentOption])
 
-  // useEffect( () => {
-  //   console.log("hello option selected: ", selectValue.toString());
-  // },[selectValue])
+  useEffect( () => {
+    console.log("hello option selected: ", options);
+  },[options])
 
   return (
     <>
@@ -60,7 +60,7 @@ const SelectEmbed = ({
         onBlur={(event) => handleValidation(event.target.value)}
       >
         <option value="">{title}</option>
-        {options.map((option, index) => {
+        {options !== undefined && options !== null && options.map((option, index) => {
           return (
             <option value={option.value} key={index}>
               {option.text}

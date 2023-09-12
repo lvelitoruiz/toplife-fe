@@ -30,6 +30,7 @@ const Form = () => {
       backendUrl + "cotizations"
     );
     let dataProd = JSON.parse(data);
+    console.log('newtypes: ',dataProd.data[0]);
     setText(dataProd.data[0]);
   };
 
@@ -102,7 +103,9 @@ const Form = () => {
       {text !== null && text !== undefined ? (
         <div className="flex flex-col lg:flex-row gap-6 md:gap-0 items-center">
           <div className="w-full lg:w-6/12">
-            <SliderType type={tipoDepa} onSliderChange={handleChangeOnSlider} />
+            {
+              !text?.attributes?.gallery ? <img className="w-full h-full object-cover" src={text?.attributes?.alternativeimage?.data?.attributes?.url} alt="" /> : <SliderType type={tipoDepa} onSliderChange={handleChangeOnSlider} />
+            }
           </div>
           <div className="w-full lg:w-6/12 lg:pl-[100px]">
             <div className="pb-5">
@@ -120,7 +123,7 @@ const Form = () => {
                     </span>
                     <SelectEmbed
                       currentOption={currentOpt}
-                      options={aptTypes}
+                      options={text?.attributes?.depatypes}
                       title={"Escoge tu tipo de depa!"}
                       name={""}
                       onValueChange={(event) => setTipoDepa(event)}
