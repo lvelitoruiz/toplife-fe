@@ -22,7 +22,10 @@ const Footer = () => {
 
   return (
     <>
-      {footerInfo !== undefined && footerInfo !== null && footerInfo.attributes !== undefined && footerInfo.attributes !== null ? (
+      {footerInfo !== undefined &&
+      footerInfo !== null &&
+      footerInfo.attributes !== undefined &&
+      footerInfo.attributes !== null ? (
         <footer className="bg-[#2C261F] pt-20 px-4 lg:px-[100px]">
           <div className="grid grid-cols-10 md:grid-cols-12 gap-5 items-start border-b border-[#56514C] pb-12">
             <div className="col-span-10 md:col-span-6 lg:col-span-3">
@@ -33,13 +36,22 @@ const Footer = () => {
                 {footerInfo.attributes.contacttitle}
               </h3>
               <div className="flex flex-col gap-2 text-center md:text-start">
-                <a className="text-white" href={`tel:${footerInfo.attributes.phone}`}>
+                <a
+                  className="text-white"
+                  href={`tel:${footerInfo.attributes.phone}`}
+                >
                   {footerInfo.attributes.phone}
                 </a>
-                <a className="text-white" href={`tel:${footerInfo.attributes.cellphone}`}>
+                <a
+                  className="text-white"
+                  href={`tel:${footerInfo.attributes.cellphone}`}
+                >
                   {footerInfo.attributes.cellphone}
                 </a>
-                <a className="text-white" href={`mailto:${footerInfo.attributes.mail}`}>
+                <a
+                  className="text-white"
+                  href={`mailto:${footerInfo.attributes.mail}`}
+                >
                   {footerInfo.attributes.cellphone}
                 </a>
               </div>
@@ -58,17 +70,91 @@ const Footer = () => {
               </h3>
               <div className="flex gap-2 items-center justify-center md:justify-start">
                 <a
-                  className="bg-[#F1F1F1] w-[50px] h-[50px] rounded-full"
+                  className="bg-[#F1F1F1] w-[50px] h-[50px] rounded-full flex items-center justify-center"
                   href={footerInfo.attributes.link1}
-                ></a>
+                >
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M26.25 10V20C26.25 21.6576 25.5915 23.2473 24.4194 24.4194C23.2473 25.5915 21.6576 26.25 20 26.25H10C8.3424 26.25 6.75269 25.5915 5.58058 24.4194C4.40848 23.2473 3.75 21.6576 3.75 20V10C3.75 8.3424 4.40848 6.75269 5.58058 5.58058C6.75269 4.40848 8.3424 3.75 10 3.75H20C21.6576 3.75 23.2473 4.40848 24.4194 5.58058C25.5915 6.75269 26.25 8.3424 26.25 10Z"
+                      stroke="#2C261F"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M13.75 26.25V15C13.75 12.265 14.375 10 18.75 10M11.25 16.25H18.75"
+                      stroke="#2C261F"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
                 <a
-                  className="bg-[#F1F1F1] w-[50px] h-[50px] rounded-full"
+                  className="bg-[#F1F1F1] w-[50px] h-[50px] rounded-full flex items-center justify-center"
                   href={footerInfo.attributes.link2}
-                ></a>
+                >
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15 20C16.3261 20 17.5979 19.4732 18.5355 18.5355C19.4732 17.5979 20 16.3261 20 15C20 13.6739 19.4732 12.4021 18.5355 11.4645C17.5979 10.5268 16.3261 10 15 10C13.6739 10 12.4021 10.5268 11.4645 11.4645C10.5268 12.4021 10 13.6739 10 15C10 16.3261 10.5268 17.5979 11.4645 18.5355C12.4021 19.4732 13.6739 20 15 20Z"
+                      stroke="#2C261F"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M3.75 20V10C3.75 8.3424 4.40848 6.75269 5.58058 5.58058C6.75269 4.40848 8.3424 3.75 10 3.75H20C21.6576 3.75 23.2473 4.40848 24.4194 5.58058C25.5915 6.75269 26.25 8.3424 26.25 10V20C26.25 21.6576 25.5915 23.2473 24.4194 24.4194C23.2473 25.5915 21.6576 26.25 20 26.25H10C8.3424 26.25 6.75269 25.5915 5.58058 24.4194C4.40848 23.2473 3.75 21.6576 3.75 20Z"
+                      stroke="#2C261F"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      d="M21.875 8.13753L21.8875 8.12378"
+                      stroke="#2C261F"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
                 <a
-                  className="bg-[#F1F1F1] w-[50px] h-[50px] rounded-full"
+                  className="bg-[#F1F1F1] w-[50px] h-[50px] rounded-full flex items-center justify-center"
                   href={footerInfo.attributes.link3}
-                ></a>
+                >
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.75 21.25V12.5M26.25 10V20C26.25 21.6576 25.5915 23.2473 24.4194 24.4194C23.2473 25.5915 21.6576 26.25 20 26.25H10C8.3424 26.25 6.75269 25.5915 5.58058 24.4194C4.40848 23.2473 3.75 21.6576 3.75 20V10C3.75 8.3424 4.40848 6.75269 5.58058 5.58058C6.75269 4.40848 8.3424 3.75 10 3.75H20C21.6576 3.75 23.2473 4.40848 24.4194 5.58058C25.5915 6.75269 26.25 8.3424 26.25 10Z"
+                      stroke="#2C261F"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M13.75 21.25V17.1875M13.75 17.1875V12.5M13.75 17.1875C13.75 12.5 21.25 12.5 21.25 17.1875V21.25M8.75 8.76253L8.7625 8.74878"
+                      stroke="#2C261F"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>

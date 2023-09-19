@@ -32,7 +32,7 @@ const Header = ({fixed}: HeaderProps) => {
         </a>
         <a
           className="font-medium h-[50px] hidden lg:flex bg-[#42B0CD] text-white px-5 uppercase items-center shadow-[0_10px_20px_0_rgba(66,176,205,0.20)]"
-          href="#form"
+          href="/#form"
         >
           <span className="pt-2 inline-block">¡Cotizar ahora!</span>
         </a>

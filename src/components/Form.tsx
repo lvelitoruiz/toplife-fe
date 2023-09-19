@@ -133,7 +133,7 @@ const Form = () => {
               </div>
               <div>
                 <Input
-                  placeholder="MONBRES"
+                  placeholder="MOMBRES"
                   name="nombre"
                   texto={""}
                   onValueChange={(event) => setNombres(event)}
